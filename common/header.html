@@ -46,7 +46,7 @@ var BugDispatch = {
     maxBugs: 20,
     minSpeed: 1,
     maxSpeed: 3,
-    imageSprite: "https://github.com/naidihr/Bug/blob/master/fly-sprite.png?raw=true",
+    imageSprite: "https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/fly-sprite.png?raw=true",
     fly_width: 13,
     fly_height: 14,
     num_frames: 5,
@@ -826,8 +826,16 @@ window.requestAnimFrame = (function () {
     window.setTimeout(callback, 1000 / 60);
   };
 })();
+    
+$maxBugs = 10;
+$minDelay = 500;
+$mouseOver = 'random';      
+    
+$maxBugs = settings.max_number_bugs;
+$minDelay = settings.delay_start;
+$mouseOver = settings.mouseover_action;  
 
 
-new BugController({'minBugs':1, 'maxBugs':1, 'mouseOver':'random', 'minDelay': 60000,
+new BugController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
     'maxDelay': 100000});
 </script>
