@@ -827,6 +827,7 @@ window.requestAnimFrame = (function () {
   };
 })();
 
+$(document).ready(function(){
     
 const settings = Discourse.SiteSettings;    
     
@@ -840,5 +841,8 @@ $mouseOver = settings.mouseover_action;
 
 
 new BugController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-    'maxDelay': 100000});
+    'maxDelay': 100000});    
+    
+});
+
 </script>
