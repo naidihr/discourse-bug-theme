@@ -1,0 +1,30 @@
+show_bugs:
+  type: bool
+  default: true
+  description: 'Show bugs on screen!'
+        
+max_number_bugs
+  type: integer
+  default: 1
+  description: 'The maximum number of bugs to display. Keep it low to keep it subtle.'
+
+delay_start
+  type: integer
+  default: 500
+  description: 'Time before the first bug appears.'
+  
+mouseover_action
+  type: enum
+  default: random
+  choices:
+    - fly
+    - flyoff
+    - die
+    - multiply
+    - nothing
+    - random
+  description: 
+  type: integer
+  default: 500
+  description: 'What ahappens to the bugs when you swat them with your mouse or finger'  
+
