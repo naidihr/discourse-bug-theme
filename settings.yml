@@ -26,5 +26,5 @@ mouseover_action
   description: 
   type: integer
   default: 500
-  description: 'What ahappens to the bugs when you swat them with your mouse or finger'  
+  description: 'What happens to the bugs when you swat them with your mouse or finger.'  
 
