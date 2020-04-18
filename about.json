@@ -8,8 +8,7 @@
   "minimum_discourse_version": null,
   "maximum_discourse_version": null,
   "assets": {
-    "fly-sprite": "assets/fly-sprite.png",
-    "flysprite": "assets/flysprite.png"
+    "fly-sprite": "assets/fly-sprite.png"
   },
   "color_schemes": {
   },
