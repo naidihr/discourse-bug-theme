@@ -27,7 +27,7 @@ mouseover_action:
     - nothing
   description: 'What happens to the bugs when you swat them with your mouse or finger.'  
   
-  show_for_users:
+show_for_users:
   type: list
   default: '' 
   description: 'Enter a list of usernames to see the bugs. Enter evryone to show to all.'
