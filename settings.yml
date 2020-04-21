@@ -30,5 +30,5 @@ mouseover_action:
 show_for_users:
   type: list
   default: '' 
-  description: 'Enter a list of usernames to see the bugs. Enter evryone to show to all.'
+  description: 'Enter a list of usernames to see the bugs. Enter everyone to show to all.'
 
