@@ -827,21 +827,36 @@ window.requestAnimFrame = (function () {
   };
 })();
 
-$(document).ready(function(){
+</script>
+
+
+<script type="text/discourse-plugin" version="0.8">
+api.onPageChange(() => {
+    const user = api.getCurrentUser(),
+    username = user.username;
+    console.log('Hello there '+username+"!");
     
-const settings = Discourse.SiteSettings;    
-    
-$maxBugs = 10;
+        //for (var namex in settings) {
+        // console.log("SettingProp = " + namex;
+        //}
+        
+        $maxBugs = 10;
 $minDelay = 500;
 $mouseOver = 'random';      
     
 $maxBugs = settings.max_number_bugs;
 $minDelay = settings.delay_start;
+$maxDelay = settings.delay_start;
 $mouseOver = settings.mouseover_action;  
 
+console.log(settings.max_number_bugs);
 
-new BugController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-    'maxDelay': 100000});    
+if (username == "rhidian.bramley"){
+
+new BugController({'minBugs':8, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+    'maxDelay': $maxDelay});    
+  
+} 
     
 });
 
