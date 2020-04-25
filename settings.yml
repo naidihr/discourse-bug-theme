@@ -36,7 +36,6 @@ mouseover_action:
     - flyoff
     - die
     - multiply
-    - nothing
   description: 'What happens to the bugs when you swat them with your mouse or finger.'  
   
 show_for_users:
