@@ -1,5 +1,47 @@
+<script type="text/discourse-plugin" version="0.8">
+api.onPageChange(() => {
+if(!BugStart){   
+BugStart = true;
+    const user = api.getCurrentUser(),
+    username = user.username;
+    console.log('Hello there '+username+"!");
+    
+        //for (var namex in settings.theme_uploads) {
+        // console.log("SettingProp = " + namex);
+        //}
+        
+        $maxBugs = 10;
+$minDelay = 500;
+    
+    
+$maxFlies = settings.max_number_fruit_flies;
+$maxSpiders = settings.max_number_spiders;
+$minDelay = settings.delay_start;
+$maxDelay = settings.delay_start;
+$mouseOver = settings.mouseover_action; 
+$canInteract = settings.bugs_can_interact;
+
+//$flySprite = settings.theme_uploads.fly-sprite
+//$spiderSprite = settings.theme_uploads.fly-sprite
+$flySprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/fly-sprite.png?raw=true'
+$spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/spider-sprite.png?raw=true'
+
+    if (settings.show_bugs && (settings.show_for_users.split("|").includes(username) || settings.show_for_users.split("|").includes('everyone'))) {
+
+        new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+        'maxDelay': $maxDelay, 'imageSprite': $flySprite, canInteract: $canInteract});    
+ 
+        new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+        'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4, canInteract: $canInteract});    
+         
+    } 
+}    
+});
+
+</script>
+
 <script>
-/* Discourse Bug theme component
+/* Bug theme component
  * Modification to include bug interaction on theme settings
  * Copyright (c) 2020 Rhidian Bramley
  * Released under MIT-style license.
@@ -270,7 +312,7 @@ var BugDispatch = {
                     }
                     */
                 }
-            } else if(this.bugs && this.bugs[i].options.bugType == 'fly')  {;
+            } else if(this.bugs && this.bugs[i].options.bugType == 'fly')  {
                 var pos2 = this.bugs[i].getPos();
                 if (pos2) {
                     for (s = 0; s < spider.length; s++){
@@ -1086,48 +1128,5 @@ window.requestAnimFrame = (function() {
             window.setTimeout(callback, 1000 / 60);
         };
 })();
-
-</script>
-
-
-<script type="text/discourse-plugin" version="0.8">
-api.onPageChange(() => {
-if(!BugStart){   
-BugStart = true;
-    const user = api.getCurrentUser(),
-    username = user.username;
-    console.log('Hello there '+username+"!");
-    
-        //for (var namex in settings.theme_uploads) {
-        // console.log("SettingProp = " + namex);
-        //}
-        
-        $maxBugs = 10;
-$minDelay = 500;
-    
-    
-$maxFlies = settings.max_number_fruit_flies;
-$maxSpiders = settings.max_number_spiders;
-$minDelay = settings.delay_start;
-$maxDelay = settings.delay_start;
-$mouseOver = settings.mouseover_action; 
-$canInteract = settings.bugs_can_interact;
-
-//$flySprite = settings.theme_uploads.fly-sprite
-//$spiderSprite = settings.theme_uploads.fly-sprite
-$flySprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/fly-sprite.png?raw=true'
-$spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/spider-sprite.png?raw=true'
-
-    if (settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
-
-        new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-        'maxDelay': $maxDelay, 'imageSprite': $flySprite, canInteract: $canInteract});    
- 
-        new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-        'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4, canInteract: $canInteract});    
-         
-    } 
-}    
-});
 
 </script>
