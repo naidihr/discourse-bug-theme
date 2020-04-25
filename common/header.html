@@ -1,32 +1,16 @@
 <script>
-// ==ClosureCompiler==
-// @compilation_level SIMPLE_OPTIMIZATIONS
-// @output_file_name bug-min.js
-// ==/ClosureCompiler==
-/**
- * @preserve Bug.js - https://github.com/Auz/Bug
+/* Discourse Bug theme component
+ * Modification to include bug interaction on theme settings
+ * Copyright (c) 2020 Rhidian Bramley
  * Released under MIT-style license.
- * Original Screen Bug http://screen-bug.googlecode.com/git/index.html
- */
-/**
- * Bug.js - Add bugs to your page
  *
- * https://github.com/Auz/Bug
+ * Based on Bug.js - https://github.com/Auz/Bug
+ * Copyright (c) 2016 Graham McNicoll
  *
- * license: MIT-style license.
- * copyright: Copyright (c) 2016 Graham McNicoll
- *
- *
- * Created for an aprils fool joke at Education.com 2013. I knew there was probably a script
- * that did it already, and there was: http://screen-bug.googlecode.com/git/index.html.
- * I used this as the starting point and heavily modified it, used sprite image animation,
- * and added many new features.
- *
- *
+ * Created for an aprils fool joke at Education.com 2013.
  * Original Screen Bug http://screen-bug.googlecode.com/git/index.html
  * Copyright ©2011 Kernc (kerncece ^_^ gmail)
  * Released under WTFPL license.
- *
  */
 "usestrict";
 
@@ -54,6 +38,7 @@ var BugDispatch = {
         zoom: 10, // random zoom variation from 1 to 10 - 10 being full size.
         canFly: true,
         canDie: true,
+        canInteract: true,
         numDeathTypes: 3,
         monitorMouseMovement: false,
         eventDistanceToBug: 100,
@@ -174,9 +159,12 @@ var BugDispatch = {
                that.check_if_mouse_close_to_bug();
             };
         }
-        setInterval(function(){
+        
+        if (this.options.canInteract) {
+            setInterval(function(){
             that.check_if_spider_close_to_bug();
-        },100);
+            },100);
+        }
 
     },
 
@@ -259,19 +247,6 @@ var BugDispatch = {
         }
 
     },
-    
-    getAngleDegrees: function (fromX, fromY, toX, toY, force360 = false) {
-    let deltaX = -(toX - fromX);
-    let deltaY = toY - fromY;
-    let radians = Math.atan2(deltaY, deltaX);
-    let degrees = (radians * 180) / Math.PI;
-    degrees = degrees + 180;
-        if (force360) {
-            while (degrees >= 360) degrees -= 360;
-            while (degrees < 0) degrees += 360;
-        }
-        return degrees;
-    },    
  
     check_if_spider_close_to_bug: function() {
         var numBugs = this.bugs.length;
@@ -282,22 +257,20 @@ var BugDispatch = {
             if(this.bugs && this.bugs[i].options.bugType == 'spider'){
                 var pos1 = this.bugs[i].getPos();
                 if (pos1){
-                    spider[i] = this.bugs[i];                 
-                    
-                    //console.log("spider: " + spiderXpos + ":" + spiderYpos)
-                    //var spiderDeg = Math.floor(this.getAngleDegrees(spiderXpos, spiderYpos, flyXpos, flyYpos));
-                    //console.log("spiderXpos:"+spiderXpos+" spiderYpos:"+spiderYpos+" Deg=" + spiderDeg); 
-                    //console.log("angle_deg=" + this.bugs[i].angle_deg);
-                    //console.log("sx"+spiderXpos+" sy"+spiderYpos+" fx"+ flyXpos+" fy"+flyYpos+" Deg=" + spiderDeg+" act="+this.bugs[i].angle_deg);
-                    //console.log("angle_deg=" + this.bugs[i]
-                       //this.bugs[i].angle_deg = 90 - spiderDeg;
-                    //if(spiderYpos<flyYpos){spiderYpos+=10}else{spiderYpos-=10};
-                    //if(spiderXpos<flyXpos){spiderXpos+=10}else{spiderXpos-=10};
-                    //if(spiderYpos<flyYpos){spiderYpos+=10}else{spiderYpos-=10};
-                    //if(spiderXpos<flyXpos){spiderXpos+=10}else{spiderXpos-=10};
-                } 
+                    spider[i] = this.bugs[i];
+                     /* disable spider-spider interaction for now
+                     for (s = 0; s < spider.length; s++){
+                     if(i != s){
+                            var pos3 = spider[s].getPos();
+                            var dist = Math.abs(pos3.top - pos1.top) + Math.abs(pos3.left - pos1.left);
+                            if (dist < 20){
+                                this.near_bug(this.bugs[i],'random');
+                            }
+                        }
+                    }
+                    */
+                }
             } else if(this.bugs && this.bugs[i].options.bugType == 'fly')  {;
-                //fly[i]=this.bugs[i];
                 var pos2 = this.bugs[i].getPos();
                 if (pos2) {
                     for (s = 0; s < spider.length; s++){
@@ -379,7 +352,10 @@ var BugDispatch = {
                 }, this.options.minTimeBetweenMultipy);
             }
 
-        }
+        }var mode = this.options.mouseOver;
+        
+        mode = this.options.mouseOver;
+        
     },
 
     random: function(min, max, round) {
@@ -1135,6 +1111,7 @@ $maxSpiders = settings.max_number_spiders;
 $minDelay = settings.delay_start;
 $maxDelay = settings.delay_start;
 $mouseOver = settings.mouseover_action; 
+$canInteract = settings.bugs_can_interact;
 
 //$flySprite = settings.theme_uploads.fly-sprite
 //$spiderSprite = settings.theme_uploads.fly-sprite
@@ -1144,10 +1121,10 @@ $spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/comm
     if (settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
 
         new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-        'maxDelay': $maxDelay, 'imageSprite': $flySprite});    
+        'maxDelay': $maxDelay, 'imageSprite': $flySprite, canInteract: $canInteract});    
  
         new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-        'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4});    
+        'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4, canInteract: $canInteract});    
          
     } 
 }    
