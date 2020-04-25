@@ -17,7 +17,7 @@ max_number_spiders:
   max: 100
   description: 'The maximum number of spiders to display' 
   
-bugs_can_inteact:
+bugs_can_interact:
   type: bool
   default: true
   description: 'Flies will avoid the spiders'
