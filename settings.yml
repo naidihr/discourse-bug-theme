@@ -8,14 +8,19 @@ max_number_fruit_flies:
   default: 1
   min: 0
   max: 100
-  description: 'The maximum number of fruit flies to display.'
+  description: 'The maximum number of fruit flies to display'
   
 max_number_spiders:
   type: integer
   default: 1
   min: 0
   max: 100
-  description: 'The maximum number of spiders to display.' 
+  description: 'The maximum number of spiders to display' 
+  
+flies_avoid_spiders:
+  type: bool
+  default: true
+  description: Flies move away when close to a spider'
 
 delay_start:
   type: integer
@@ -33,6 +38,11 @@ mouseover_action:
     - multiply
     - nothing
   description: 'What happens to the bugs when you swat them with your mouse or finger.'  
+  
+show_mobile:
+  type: bool
+  default: true
+  description: 'Show on mobile devices'
   
 show_for_users:
   type: list
