@@ -17,10 +17,10 @@ max_number_spiders:
   max: 100
   description: 'The maximum number of spiders to display' 
   
-flies_avoid_spiders:
+bugs_can_inteact:
   type: bool
   default: true
-  description: 'Flies fly away when close to a spider'
+  description: 'Flies will avoid the spiders'
 
 delay_start:
   type: integer
