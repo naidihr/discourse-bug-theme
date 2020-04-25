@@ -1141,12 +1141,7 @@ $mouseOver = settings.mouseover_action;
 $flySprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/fly-sprite.png?raw=true'
 $spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/spider-sprite.png?raw=true'
 
-console.log(settings.max_number_bugs);
-
-const hideMobile = (!settings.show_mobile && this.site.mobileView) ? "true" : hideMobile;
-const hideMobile = false;
-
-    if (!hideMobile && settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
+    if (settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
 
         new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
         'maxDelay': $maxDelay, 'imageSprite': $flySprite});    
