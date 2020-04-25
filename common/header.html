@@ -29,15 +29,10 @@
  *
  */
 "usestrict";
+
 var BugStart = false;
-var numBugsDead = 0; //RB added
-var spiderXpos = 0;
-var spiderYpos = 0; 
+var numBugsDead = 0;
 var spider = new Array();
-var fly = new Array();
-var flyXpos = 0;
-var flyYpos = 0;
-var flyDist = 10000;
 
 var BugDispatch = {
 
@@ -283,22 +278,12 @@ var BugDispatch = {
         if(numBugs.length < 2){return};
         //console.log("numBugs1=" + numBugs);
         var i = 0;
-        var bugDist = this.options.eventDistanceToBug;
-        var bugNearest = 0;
-        flyDist=10000;
         for (i = 0; i < numBugs; i++) {  
             if(this.bugs && this.bugs[i].options.bugType == 'spider'){
                 var pos1 = this.bugs[i].getPos();
                 if (pos1){
-                    spiderYpos = pos1.top;
-                    spiderXpos = pos1.left;
                     spider[i] = this.bugs[i];                 
                     
-                    
-               // for (f = 0; f < numFlys; f++){
-                //    
-                //}
-                    if(flyYpos!=0){
                     //console.log("spider: " + spiderXpos + ":" + spiderYpos)
                     //var spiderDeg = Math.floor(this.getAngleDegrees(spiderXpos, spiderYpos, flyXpos, flyYpos));
                     //console.log("spiderXpos:"+spiderXpos+" spiderYpos:"+spiderYpos+" Deg=" + spiderDeg); 
@@ -310,25 +295,16 @@ var BugDispatch = {
                     //if(spiderXpos<flyXpos){spiderXpos+=10}else{spiderXpos-=10};
                     //if(spiderYpos<flyYpos){spiderYpos+=10}else{spiderYpos-=10};
                     //if(spiderXpos<flyXpos){spiderXpos+=10}else{spiderXpos-=10};
-                        
-                        //this.bugs[i].setPos(spiderYpos,spiderXpos);
-                        //this.bugs[i].angle-deg+=10;
-                    }
                 } 
-            } else if(this.bugs && this.bugs[i].options.bugType == 'fly')  {
-                //console.log("Fly");
-                fly[i]=this.bugs[i];
+            } else if(this.bugs && this.bugs[i].options.bugType == 'fly')  {;
+                //fly[i]=this.bugs[i];
                 var pos2 = this.bugs[i].getPos();
                 if (pos2) {
                     for (s = 0; s < spider.length; s++){
                         var pos1 = spider[s].getPos();
-                        spiderYpos = pos1.top;
-                        spiderXpos = pos1.left;
-                        var dist = Math.abs(pos2.top - spiderYpos - 30) + Math.abs(pos2.left - spiderXpos - 30);
-                        if (dist < flyDist){bugNearest = i; flyDist = dist; flyXpos=pos2.left; flyYpos=pos2.top};                     
-                        if (dist < bugDist){
-                        //console.log('collision - bug' + i);
-                        this.near_bug(this.bugs[i]);
+                        var dist = Math.abs(pos2.top - pos1.top - 30) + Math.abs(pos2.left - pos1.left - 30);
+                        if (dist < this.options.eventDistanceToBug){
+                            this.near_bug(this.bugs[i],'fly');
                         }
                     }
                 }
@@ -336,16 +312,20 @@ var BugDispatch = {
         }  
     },
 
-    near_bug: function(bug) {
-        this.on_bug(bug);
+    near_bug: function(bug, action) {
+        this.on_bug(bug, action);
     },
 
-    on_bug: function(bug) {
+    on_bug: function(bug, action) {
         if (!bug.alive) {
             return;
         }
 
         var mode = this.options.mouseOver;
+        
+        if(action != undefined){
+            mode === action;
+        }
 
         if (mode === 'random') {
             mode = this.modes[(this.random(0, (this.modes.length - 1), true))];
@@ -447,29 +427,6 @@ var SpiderController = function() {
 SpiderController.prototype = BugDispatch;
 
 
-var LadyBugController = function() {
-    var ladyBugOptions = {
-        imageSprite: 'ladybug-sprite.png',
-        bugWidth: 69,
-        bugHeight: 90,
-        num_frames: 7,
-        canFly: false,
-        canDie: true,
-        numDeathTypes: 2,
-        zoom: 6,
-        minDelay: 200,
-        maxDelay: 3000,
-        minSpeed: 7,
-        maxSpeed: 14,
-        minBugs: 2,
-        maxBugs: 4
-    };
-    this.options = mergeOptions(this.options, ladyBugOptions);
-    this.initialize.apply(this, arguments);
-
-}
-
-LadyBugController.prototype = BugDispatch;
 
 /***************/
 /**    Bug    **/
@@ -1178,31 +1135,26 @@ $maxSpiders = settings.max_number_spiders;
 $minDelay = settings.delay_start;
 $maxDelay = settings.delay_start;
 $mouseOver = settings.mouseover_action; 
-//$mouseOver = 'die';  
-//$imageSprite = settings.theme_uploads.fly-sprite
+
+//$flySprite = settings.theme_uploads.fly-sprite
+//$spiderSprite = settings.theme_uploads.fly-sprite
 $flySprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/fly-sprite.png?raw=true'
 $spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/spider-sprite.png?raw=true'
-$ladybugSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/common/assets/ladybug-sprite.png?raw=true'
 
 console.log(settings.max_number_bugs);
 
-//const hideMobile = (!settings.show_mobile && this.site.mobileView) ? "true" : hideMobile;
+const hideMobile = (!settings.show_mobile && this.site.mobileView) ? "true" : hideMobile;
 const hideMobile = false;
 
-if (!hideMobile && settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
+    if (!hideMobile && settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
 
-
-new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-    'maxDelay': $maxDelay, 'imageSprite': $flySprite});    
+        new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+        'maxDelay': $maxDelay, 'imageSprite': $flySprite});    
  
-
-new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
-    'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4});    
-  
-//new LadyBugController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
- //   'maxDelay': $maxDelay, 'imageSprite': $ladybugSprite, zoom: 5});   
-  
-} 
+        new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+        'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4});    
+         
+    } 
 }    
 });
 
