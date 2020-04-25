@@ -1173,7 +1173,8 @@ BugStart = true;
 $minDelay = 500;
     
     
-$maxBugs = settings.max_number_bugs;
+$maxFlies = settings.max_number_fruit_flies;
+$maxSpiders = settings.max_number_spiders;
 $minDelay = settings.delay_start;
 $maxDelay = settings.delay_start;
 $mouseOver = settings.mouseover_action; 
@@ -1191,11 +1192,11 @@ const hideMobile = false;
 if (!hideMobile && settings.show_bugs && settings.show_for_users.split("|").includes(username)) {
 
 
-new BugController({'minBugs': 1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
     'maxDelay': $maxDelay, 'imageSprite': $flySprite});    
  
 
-new SpiderController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
+new SpiderController({'minBugs':1, 'maxBugs': $maxSpiders, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
     'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4});    
   
 //new LadyBugController({'minBugs':1, 'maxBugs': $maxBugs, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
