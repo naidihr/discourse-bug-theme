@@ -20,7 +20,7 @@ max_number_spiders:
 flies_avoid_spiders:
   type: bool
   default: true
-  description: Flies move away when close to a spider'
+  description: 'Flies fly away when close to a spider'
 
 delay_start:
   type: integer
@@ -38,11 +38,6 @@ mouseover_action:
     - multiply
     - nothing
   description: 'What happens to the bugs when you swat them with your mouse or finger.'  
-  
-show_mobile:
-  type: bool
-  default: true
-  description: 'Show on mobile devices'
   
 show_for_users:
   type: list
