@@ -3,12 +3,19 @@ show_bugs:
   default: true
   description: 'Show bugs on screen!'
         
-max_number_bugs:
+max_number_fruit_flies:
   type: integer
   default: 1
   min: 0
   max: 100
-  description: 'The maximum number of bugs to display. Keep it low to keep it subtle.'
+  description: 'The maximum number of fruit flies to display.'
+  
+max_number_spiders:
+  type: integer
+  default: 1
+  min: 0
+  max: 100
+  description: 'The maximum number of spiders to display.' 
 
 delay_start:
   type: integer
