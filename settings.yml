@@ -5,14 +5,14 @@ show_bugs:
         
 max_number_fruit_flies:
   type: integer
-  default: 1
+  default: 10
   min: 0
   max: 100
   description: 'The maximum number of fruit flies to display'
   
 max_number_spiders:
   type: integer
-  default: 1
+  default: 2
   min: 0
   max: 100
   description: 'The maximum number of spiders to display' 
