@@ -2,7 +2,7 @@
   "name": "Bugs",
   "component": true,
   "license_url": "https://github.com/naidihr/discourse-bug-theme/blob/master/LICENSE",
-  "about_url": null,
+  "about_url": "https://github.com/naidihr/discourse-bug-theme/blob/master/README.md",
   "authors": "Rhidian",
   "theme_version": null,
   "minimum_discourse_version": null,
