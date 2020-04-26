@@ -1,7 +1,7 @@
 show_bugs:
   type: bool
   default: false
-  description: 'Show bugs on screen!'<br><br>This is switched off by default to give you time to change the settings and add specific users or groups. Turn this on when ready to show the bugs.'
+  description: 'Show bugs on screen!<br><br>This is switched off by default to give you time to change the settings and add specific users or groups. Turn this on when ready to show the bugs.'
         
 max_number_fruit_flies:
   type: integer
