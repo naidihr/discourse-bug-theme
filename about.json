@@ -9,7 +9,7 @@
   "maximum_discourse_version": null,
   "assets": {
     "fly-sprite": "assets/fly-sprite.png",
-    "spider-sprite" "assets/spider-sprite.png"
+    "spider-sprite": "assets/spider-sprite.png"
   },
   "color_schemes": {
   },
