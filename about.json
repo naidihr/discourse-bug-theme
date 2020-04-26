@@ -8,9 +8,8 @@
   "minimum_discourse_version": null,
   "maximum_discourse_version": null,
   "assets": {
-    "spider-sprite": "assets/spider.png",    
-    "fly-sprite": "assets/fly.png"
-
+    "spider": "assets/spider.png",    
+    "fly": "assets/fly.png"
   },
   "color_schemes": {
   },
