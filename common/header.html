@@ -1,19 +1,34 @@
 <script type="text/discourse-plugin" version="0.8">
 api.onPageChange(() => {
+
 if(!BugStart){   
 BugStart = true;
-    const user = api.getCurrentUser(),
-    username = user.username;
-    console.log('Hello there '+username+"!");
+
+let showUser = false;
+let showUserGroup = false;
+let showEveryone = false;
+
+showEveryone = settings.show_for_users.split("|").includes("everyone");  
+
+    const user = api.getCurrentUser()
     
-        //for (var namex in settings.theme_uploads) {
-        // console.log("SettingProp = " + namex);
-        //}
+    if(user){
         
-        $maxBugs = 10;
-$minDelay = 500;
-    
-    
+        username = user.username;
+        console.log('Hello there '+username+"!");
+        showUser = settings.show_for_users.split("|").includes(username);  
+                
+        if (user.groups){
+            for (var i=0; i < user.groups.length; i++) {
+                if (settings.show_for_users.split("|").includes(user.groups[i].name)){
+                    showUserGroup = true;
+                }
+            }
+            
+        }
+        
+    }              
+
 $maxFlies = settings.max_number_fruit_flies;
 $maxSpiders = settings.max_number_spiders;
 $minDelay = settings.delay_start;
@@ -26,7 +41,7 @@ $spiderSprite = settings.theme_uploads.spider;
 //$flySprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/assets/fly-sprite.png?raw=true'
 //$spiderSprite = 'https://github.com/naidihr/discourse-bug-theme/blob/master/assets/spider-sprite.png?raw=true'
 
-    if (settings.show_bugs && (settings.show_for_users.split("|").includes(username) || settings.show_for_users.split("|").includes('everyone'))) {
+    if (settings.show_bugs && (showUser || showUserGroup || showEveryone)) {
 
         new BugController({'minBugs': 1, 'maxBugs': $maxFlies, 'mouseOver': $mouseOver, 'minDelay': $minDelay,
         'maxDelay': $maxDelay, 'imageSprite': $flySprite, canInteract: $canInteract});    
