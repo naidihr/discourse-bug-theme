@@ -8,14 +8,14 @@ max_number_fruit_flies:
   default: 10
   min: 0
   max: 100
-  description: 'The maximum number of fruit flies to display'
+  description: 'The maximum number of fruit flies to display (0-100)'
   
 max_number_spiders:
   type: integer
   default: 2
   min: 0
   max: 100
-  description: 'The maximum number of spiders to display' 
+  description: 'The maximum number of spiders to display (0-100)' 
   
 bugs_can_interact:
   type: bool
