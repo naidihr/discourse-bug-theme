@@ -22,6 +22,7 @@ showEveryone = settings.show_for_users.split("|").includes("everyone");
             for (var i=0; i < user.groups.length; i++) {
                 if (settings.show_for_users.split("|").includes(user.groups[i].name)){
                     showUserGroup = true;
+                    console.log('User group ' + user.groups[i].name);
                 }
             }
             
